@@ -10,7 +10,7 @@ image:
   # This sets the pull policy for images.
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "e95363a4"
+  tag: "d755ce98"
 # This is for the secretes for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 imagePullSecrets: []
 # This is to override the chart name.
@@ -50,14 +50,12 @@ service:
   targetPort: 80 # The port on the container
   nodePort: 30000 # Optional: Specify a custom NodePort (default range is 30000-32767)
   name: my-vuejs-port
-
 readinessProbe:
   enabled: true # Enable the readiness probe
   path: /health # Path for the readiness probe to check
-  port: 80      # Port for the readiness probe
+  port: 80 # Port for the readiness probe
   initialDelaySeconds: 10 # Time to wait before starting the probe
   periodSeconds: 5
-  
 # This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ingress:
   enabled: false
