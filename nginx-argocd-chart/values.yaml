@@ -50,12 +50,14 @@ service:
   targetPort: 80 # The port on the container
   nodePort: 30000 # Optional: Specify a custom NodePort (default range is 30000-32767)
   name: my-vuejs-port
+
 readinessProbe:
   enabled: true # Enable the readiness probe
   path: /health # Path for the readiness probe to check
   port: 80 # Port for the readiness probe
   initialDelaySeconds: 10 # Time to wait before starting the probe
   periodSeconds: 5
+  
 # This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ingress:
   enabled: false
@@ -72,17 +74,14 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
-resources: {}
-# We usually recommend not to specify default resources and to leave this as a conscious
-# choice for the user. This also increases chances charts run on environments with little
-# resources, such as Minikube. If you do want to specify resources, uncomment the following
-# lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-# limits:
-#   cpu: 100m
-#   memory: 128Mi
-# requests:
-#   cpu: 100m
-#   memory: 128Mi
+resources:
+  limits:
+    memory: "256Mi"
+    cpu: "500m"
+  requests:
+    memory: "128Mi"
+    cpu: "250m"
+
 
 # This is to setup the liveness and readiness probes more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
 livenessProbe:
@@ -99,8 +98,7 @@ autoscaling:
   minReplicas: 1
   maxReplicas: 100
   targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
-# Additional volumes on the output Deployment definition.
+  
 volumes: []
 # - name: foo
 #   secret:
